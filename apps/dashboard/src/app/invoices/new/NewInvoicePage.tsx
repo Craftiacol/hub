@@ -22,7 +22,7 @@ export function NewInvoicePage({ clients }: NewInvoicePageProps) {
   async function handleSubmit(data: Record<string, unknown>) {
     setIsLoading(true);
     setError(undefined);
-    const result = await createInvoiceAction(data as Record<string, string>);
+    const result = await createInvoiceAction(data as Parameters<typeof createInvoiceAction>[0]);
     if (result?.error) {
       setError(result.error);
       setIsLoading(false);

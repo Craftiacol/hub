@@ -33,7 +33,7 @@ export function EditInvoicePage({ invoice, clients, items }: EditInvoicePageProp
   async function handleSubmit(data: Record<string, unknown>) {
     setIsLoading(true);
     setError(undefined);
-    const result = await updateInvoiceAction(invoice.id, data as Record<string, string>);
+    const result = await updateInvoiceAction(invoice.id, data as Parameters<typeof updateInvoiceAction>[1]);
     if (result?.error) {
       setError(result.error);
       setIsLoading(false);
