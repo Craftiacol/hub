@@ -23,7 +23,12 @@ export async function generatePaymentLinkAction(invoiceId: string) {
     return { error: "Invoice is already paid" };
   }
 
-  const paymentLink = await createPaymentLink(invoice);
+  const paymentLink = await createPaymentLink({
+    id: invoice.id,
+    invoice_number: invoice.invoice_number,
+    total: invoice.total,
+    currency: invoice.currency ?? undefined,
+  });
 
   await supabase
     .from("invoices")

@@ -94,7 +94,12 @@ describe("generatePaymentLinkAction", () => {
   it("should create a payment link and store it on the invoice", async () => {
     const result = await generatePaymentLinkAction("inv-1");
 
-    expect(mockCreatePaymentLink).toHaveBeenCalledWith(mockInvoice);
+    expect(mockCreatePaymentLink).toHaveBeenCalledWith({
+      id: mockInvoice.id,
+      invoice_number: mockInvoice.invoice_number,
+      total: mockInvoice.total,
+      currency: undefined,
+    });
     expect(result).toEqual({
       success: true,
       paymentLink: "https://checkout.stripe.com/pay/cs_test_123",
@@ -144,7 +149,7 @@ describe("markInvoicePaidAction", () => {
   it("should set paid_at to a valid ISO timestamp", async () => {
     await markInvoicePaidAction("inv-1");
 
-    const callArgs = mockUpdate.mock.calls[0][0];
+    const callArgs = mockUpdate.mock.calls[0]![0];
     const paidAt = new Date(callArgs.paid_at);
     expect(paidAt.getTime()).not.toBeNaN();
   });

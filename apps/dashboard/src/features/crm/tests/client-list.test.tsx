@@ -89,7 +89,7 @@ describe("ClientList", () => {
       const onDelete = vi.fn();
       render(<ClientList clients={mockClients} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       expect(
         screen.getByText(/are you sure you want to delete Acme Corp/i)
       ).toBeInTheDocument();
@@ -100,10 +100,10 @@ describe("ClientList", () => {
       const onDelete = vi.fn();
       render(<ClientList clients={mockClients} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       // The confirm button is inside the dialog overlay
       const dialog = screen.getByTestId("confirm-dialog-overlay");
-      const confirmButton = dialog.querySelector("button:last-child")!;
+      const confirmButton = dialog.querySelector("button:last-child") as HTMLElement;
       fireEvent.click(confirmButton);
       expect(onDelete).toHaveBeenCalledWith("1");
     });
@@ -112,7 +112,7 @@ describe("ClientList", () => {
       const onDelete = vi.fn();
       render(<ClientList clients={mockClients} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       fireEvent.click(screen.getByRole("button", { name: /cancel/i }));
       expect(onDelete).not.toHaveBeenCalled();
     });

@@ -50,8 +50,8 @@ describe("InvoiceList", () => {
 
   describe("client name column", () => {
     const invoicesWithClients = [
-      { ...mockInvoices[0], client_id: "c1", clients: { name: "Acme Corp" } },
-      { ...mockInvoices[1], client_id: null, clients: null },
+      { ...mockInvoices[0]!, client_id: "c1", clients: { name: "Acme Corp" } },
+      { ...mockInvoices[1]!, client_id: null, clients: null },
     ];
 
     it("should render a Client column header", () => {
@@ -77,7 +77,7 @@ describe("InvoiceList", () => {
       const onDelete = vi.fn();
       render(<InvoiceList invoices={mockInvoices} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       expect(
         screen.getByText(/are you sure you want to delete invoice INV-001/i)
       ).toBeInTheDocument();
@@ -88,10 +88,10 @@ describe("InvoiceList", () => {
       const onDelete = vi.fn();
       render(<InvoiceList invoices={mockInvoices} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       // The confirm button is inside the dialog overlay
       const dialog = screen.getByTestId("confirm-dialog-overlay");
-      const confirmButton = dialog.querySelector("button:last-child")!;
+      const confirmButton = dialog.querySelector("button:last-child") as HTMLElement;
       fireEvent.click(confirmButton);
       expect(onDelete).toHaveBeenCalledWith("1");
     });
@@ -100,7 +100,7 @@ describe("InvoiceList", () => {
       const onDelete = vi.fn();
       render(<InvoiceList invoices={mockInvoices} onDelete={onDelete} />);
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(deleteButtons[0]!);
       fireEvent.click(screen.getByRole("button", { name: /cancel/i }));
       expect(onDelete).not.toHaveBeenCalled();
     });
@@ -119,7 +119,7 @@ describe("InvoiceList", () => {
 
     it("should show Copy Payment Link button when payment_link exists", () => {
       const invoicesWithLink = [
-        { ...mockInvoices[0], payment_link: "https://checkout.stripe.com/test" },
+        { ...mockInvoices[0]!, payment_link: "https://checkout.stripe.com/test" },
       ];
       render(<InvoiceList invoices={invoicesWithLink} />);
       expect(screen.getByTestId("copy-link-1")).toBeInTheDocument();

@@ -3,8 +3,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // Mock Supabase query builder
 const mockRange = vi.fn();
 const mockOrder = vi.fn(() => ({ range: mockRange }));
-const mockIlike = vi.fn(() => ({ order: mockOrder }));
-const mockEq = vi.fn(() => ({ order: mockOrder, ilike: mockIlike }));
+const mockIlike = vi.fn(() => ({ order: mockOrder, eq: mockEq }));
+const mockEq = vi.fn(() => ({ order: mockOrder, ilike: mockIlike, eq: mockEq as ReturnType<typeof vi.fn> }));
 const mockSelect = vi.fn(() => ({
   eq: mockEq,
   ilike: mockIlike,
@@ -30,7 +30,7 @@ describe("getClientsFiltered", () => {
     });
     mockOrder.mockReturnValue({ range: mockRange });
     mockIlike.mockReturnValue({ order: mockOrder, eq: mockEq });
-    mockEq.mockReturnValue({ order: mockOrder, ilike: mockIlike });
+    mockEq.mockReturnValue({ order: mockOrder, ilike: mockIlike, eq: mockEq });
     mockSelect.mockReturnValue({
       eq: mockEq,
       ilike: mockIlike,

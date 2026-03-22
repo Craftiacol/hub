@@ -88,7 +88,10 @@ export async function getInvoicesFiltered(
   }
 
   if (status) {
-    query = query.eq("status", status);
+    query = query.eq(
+      "status",
+      status as "draft" | "sent" | "viewed" | "paid" | "overdue" | "cancelled"
+    );
   }
 
   if (clientId) {

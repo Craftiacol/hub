@@ -66,7 +66,7 @@ describe("Stripe Service", () => {
 
       await createPaymentLink(invoice);
 
-      const callArgs = mockCheckoutSessionsCreate.mock.calls[0][0];
+      const callArgs = mockCheckoutSessionsCreate.mock.calls[0]![0];
       expect(callArgs.success_url).toContain("/invoices/inv-1?payment=success");
       expect(callArgs.cancel_url).toContain(
         "/invoices/inv-1?payment=cancelled"
@@ -107,7 +107,7 @@ describe("Stripe Service", () => {
 
       await createPaymentLink({ ...invoice, currency: "EUR" });
 
-      const callArgs = mockCheckoutSessionsCreate.mock.calls[0][0];
+      const callArgs = mockCheckoutSessionsCreate.mock.calls[0]![0];
       expect(callArgs.line_items[0].price_data.currency).toBe("eur");
     });
 

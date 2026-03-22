@@ -85,7 +85,10 @@ export async function getClientsFiltered(
   }
 
   if (status) {
-    query = query.eq("status", status);
+    query = query.eq(
+      "status",
+      status as "lead" | "active" | "inactive" | "churned"
+    );
   }
 
   const from = (page - 1) * pageSize;

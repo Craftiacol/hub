@@ -94,8 +94,8 @@ describe("InvoiceForm", () => {
       render(<InvoiceForm onSubmit={vi.fn()} clients={mockClients} />);
       const select = screen.getByLabelText(/client/i) as HTMLSelectElement;
       const options = Array.from(select.options);
-      expect(options[0].textContent).toMatch(/no client/i);
-      expect(options[0].value).toBe("");
+      expect(options[0]!.textContent).toMatch(/no client/i);
+      expect(options[0]!.value).toBe("");
     });
 
     it("should list all clients as options", () => {

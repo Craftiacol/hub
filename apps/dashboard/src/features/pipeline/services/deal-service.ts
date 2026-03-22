@@ -87,7 +87,10 @@ export async function getDealsFiltered(
   }
 
   if (stage) {
-    query = query.eq("stage", stage);
+    query = query.eq(
+      "stage",
+      stage as "lead" | "contacted" | "proposal" | "negotiation" | "won" | "lost"
+    );
   }
 
   const from = (page - 1) * pageSize;

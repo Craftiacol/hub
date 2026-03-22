@@ -44,8 +44,9 @@ export function PipelineBoard({ deals }: PipelineBoardProps) {
       grouped[stage.key] = [];
     }
     for (const deal of deals) {
-      if (grouped[deal.stage]) {
-        grouped[deal.stage].push(deal);
+      const stageDeals = grouped[deal.stage];
+      if (stageDeals) {
+        stageDeals.push(deal);
       }
     }
     return grouped;
@@ -80,7 +81,7 @@ export function PipelineBoard({ deals }: PipelineBoardProps) {
             key={stage.key}
             stage={stage.key}
             label={stage.label}
-            deals={grouped[stage.key]}
+            deals={grouped[stage.key] ?? []}
             onDrop={handleDrop}
             onDeleteDeal={handleDelete}
           />

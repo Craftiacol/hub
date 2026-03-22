@@ -44,7 +44,7 @@ describe("InvoiceLineItems", () => {
     ];
     render(<InvoiceLineItems items={items} onChange={onChange} />);
     const removeButtons = screen.getAllByRole("button", { name: /remove/i });
-    fireEvent.click(removeButtons[0]);
+    fireEvent.click(removeButtons[0]!);
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({
         items: [expect.objectContaining({ description: "Item 2" })],

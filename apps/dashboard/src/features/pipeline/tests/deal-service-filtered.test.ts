@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // Mock Supabase query builder
 const mockRange = vi.fn();
 const mockOrder = vi.fn(() => ({ range: mockRange }));
-const mockIlike = vi.fn(() => ({ order: mockOrder }));
+const mockIlike = vi.fn(() => ({ order: mockOrder, eq: mockEq }));
 const mockEq = vi.fn(() => ({ order: mockOrder, ilike: mockIlike, eq: mockEq }));
 const mockSelect = vi.fn(() => ({
   eq: mockEq,
