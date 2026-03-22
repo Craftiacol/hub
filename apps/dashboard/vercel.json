@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd ../.. && pnpm install",
+  "buildCommand": "cd ../.. && npx turbo build --filter=@craftia/dashboard",
+  "framework": "nextjs"
+}
