@@ -16,7 +16,7 @@ export interface LineItem {
   quantity: number;
   unit_price: number;
   total: number;
-  sort_order: number;
+  sort_order: number | null;
 }
 
 export interface LineItemsChangeData {
