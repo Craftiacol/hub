@@ -1,7 +1,12 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET ?? "";
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
+
+function getWebhookSecret() {
+  return process.env.STRIPE_WEBHOOK_SECRET ?? "";
+}
 
 interface InvoiceForPayment {
   id: string;
@@ -20,7 +25,7 @@ export async function createPaymentLink(
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
   const currency = (invoice.currency ?? "USD").toLowerCase();
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: [
       {
@@ -55,10 +60,10 @@ export function handleWebhookEvent(
   payload: string,
   signature: string
 ): WebhookResult | null {
-  const event = stripe.webhooks.constructEvent(
+  const event = getStripe().webhooks.constructEvent(
     payload,
     signature,
-    webhookSecret
+    getWebhookSecret()
   );
 
   if (event.type === "checkout.session.completed") {
