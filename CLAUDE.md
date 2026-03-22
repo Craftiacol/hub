@@ -64,6 +64,7 @@ Each app and package has its own `CLAUDE.md` that provides focused context for t
 | `packages/db/CLAUDE.md` | Supabase client, types, RLS policies |
 | `packages/ai/CLAUDE.md` | AI integrations, streaming, cost tracking |
 | `packages/auth/CLAUDE.md` | Auth flows, session management, middleware |
+| `supabase/CLAUDE.md` | Database config, migrations, RLS, Edge Functions |
 
 When working in a specific workspace, the scoped CLAUDE.md provides the relevant constraints. This root file provides the global rules and orchestration context.
 
@@ -80,4 +81,5 @@ Available skills in `.claude/skills/`:
 - `playwright` — E2E testing patterns, visual verification, screenshots
 - `monorepo` — Turborepo pipelines, dependency management, workspace commands
 - `vercel` — Deployments, domains, env vars, project management
+- `resend` — Email sending, React Email templates, transactional and marketing emails
 - `supabase` — Database, migrations, RLS, auth, edge functions, type generation
