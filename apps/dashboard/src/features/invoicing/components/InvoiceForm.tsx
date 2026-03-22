@@ -75,7 +75,7 @@ export function InvoiceForm({ invoice, onSubmit, isLoading }: InvoiceFormProps) 
         <select
           id="status"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => setStatus(e.target.value as "draft" | "sent" | "viewed" | "paid" | "overdue" | "cancelled")}
         >
           <option value="draft">draft</option>
           <option value="sent">sent</option>

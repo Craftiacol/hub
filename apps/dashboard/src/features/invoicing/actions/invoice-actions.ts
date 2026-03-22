@@ -18,7 +18,7 @@ export async function createInvoiceAction(data: Record<string, string>) {
     notes: data.notes || null,
     total: 0,
     subtotal: 0,
-  });
+  } as never);
 
   if (error) return { error: error.message };
   return { success: true };

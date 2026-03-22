@@ -28,7 +28,7 @@ export async function getClientById(id: string) {
 export async function createClient(clientData: Record<string, unknown>) {
   const { data, error } = await getSupabase()
     .from("clients")
-    .insert(clientData)
+    .insert(clientData as never)
     .select()
     .single();
 
@@ -42,7 +42,7 @@ export async function updateClient(
 ) {
   const { data, error } = await getSupabase()
     .from("clients")
-    .update(clientData)
+    .update(clientData as never)
     .eq("id", id)
     .select()
     .single();

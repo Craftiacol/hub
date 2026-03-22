@@ -28,7 +28,7 @@ export async function getInvoiceById(id: string) {
 export async function createInvoice(invoiceData: Record<string, unknown>) {
   const { data, error } = await getSupabase()
     .from("invoices")
-    .insert(invoiceData)
+    .insert(invoiceData as never)
     .select()
     .single();
 
@@ -42,7 +42,7 @@ export async function updateInvoice(
 ) {
   const { data, error } = await getSupabase()
     .from("invoices")
-    .update(invoiceData)
+    .update(invoiceData as never)
     .eq("id", id)
     .select()
     .single();

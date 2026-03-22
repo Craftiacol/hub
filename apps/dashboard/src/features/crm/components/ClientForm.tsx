@@ -88,7 +88,7 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
         <select
           id="status"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => setStatus(e.target.value as "lead" | "active" | "inactive" | "churned")}
         >
           <option value="lead">lead</option>
           <option value="active">active</option>

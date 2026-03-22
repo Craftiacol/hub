@@ -18,7 +18,7 @@ export async function createClientAction(data: Record<string, string>) {
     phone: data.phone || null,
     status:
       (data.status as "lead" | "active" | "inactive" | "churned") || "lead",
-  });
+  } as never);
 
   if (error) return { error: error.message };
   return { success: true };
