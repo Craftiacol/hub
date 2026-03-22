@@ -77,5 +77,7 @@ When working in a specific workspace, the scoped CLAUDE.md provides the relevant
 
 Available skills in `.claude/skills/`:
 - `github` — GitHub workflows, PR conventions, issue management
-- `playwright` — E2E testing patterns and page object models
+- `playwright` — E2E testing patterns, visual verification, screenshots
 - `monorepo` — Turborepo pipelines, dependency management, workspace commands
+- `vercel` — Deployments, domains, env vars, project management
+- `supabase` — Database, migrations, RLS, auth, edge functions, type generation
