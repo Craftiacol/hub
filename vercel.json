@@ -1,5 +1,6 @@
 {
   "buildCommand": "npx turbo build --filter=@craftia/web",
   "outputDirectory": "apps/web/.next",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
 }
