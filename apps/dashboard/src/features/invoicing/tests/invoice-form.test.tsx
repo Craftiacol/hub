@@ -78,4 +78,70 @@ describe("InvoiceForm", () => {
     render(<InvoiceForm onSubmit={vi.fn()} isLoading />);
     expect(screen.getByRole("button", { name: /saving/i })).toBeDisabled();
   });
+
+  describe("client selector", () => {
+    const mockClients = [
+      { id: "c1", name: "Acme Corp" },
+      { id: "c2", name: "Globex Inc" },
+    ];
+
+    it("should render client select dropdown when clients are provided", () => {
+      render(<InvoiceForm onSubmit={vi.fn()} clients={mockClients} />);
+      expect(screen.getByLabelText(/client/i)).toBeInTheDocument();
+    });
+
+    it("should include a 'No client' empty option", () => {
+      render(<InvoiceForm onSubmit={vi.fn()} clients={mockClients} />);
+      const select = screen.getByLabelText(/client/i) as HTMLSelectElement;
+      const options = Array.from(select.options);
+      expect(options[0].textContent).toMatch(/no client/i);
+      expect(options[0].value).toBe("");
+    });
+
+    it("should list all clients as options", () => {
+      render(<InvoiceForm onSubmit={vi.fn()} clients={mockClients} />);
+      expect(screen.getByText("Acme Corp")).toBeInTheDocument();
+      expect(screen.getByText("Globex Inc")).toBeInTheDocument();
+    });
+
+    it("should include client_id in submission data", async () => {
+      const onSubmit = vi.fn();
+      render(<InvoiceForm onSubmit={onSubmit} clients={mockClients} />);
+      fireEvent.change(screen.getByLabelText(/invoice number/i), { target: { value: "INV-001" } });
+      fireEvent.change(screen.getByLabelText(/due date/i), { target: { value: "2026-04-01" } });
+      fireEvent.change(screen.getByLabelText(/client/i), { target: { value: "c1" } });
+      fireEvent.click(screen.getByRole("button", { name: /save/i }));
+      await waitFor(() => {
+        expect(onSubmit).toHaveBeenCalledWith(
+          expect.objectContaining({ client_id: "c1" })
+        );
+      });
+    });
+
+    it("should submit empty string as client_id when no client selected", async () => {
+      const onSubmit = vi.fn();
+      render(<InvoiceForm onSubmit={onSubmit} clients={mockClients} />);
+      fireEvent.change(screen.getByLabelText(/invoice number/i), { target: { value: "INV-001" } });
+      fireEvent.change(screen.getByLabelText(/due date/i), { target: { value: "2026-04-01" } });
+      fireEvent.click(screen.getByRole("button", { name: /save/i }));
+      await waitFor(() => {
+        expect(onSubmit).toHaveBeenCalledWith(
+          expect.objectContaining({ client_id: "" })
+        );
+      });
+    });
+
+    it("should pre-select client when editing an invoice with client_id", () => {
+      const invoice = {
+        id: "1",
+        invoice_number: "INV-001",
+        due_date: "2026-04-01",
+        status: "draft" as const,
+        notes: null,
+        client_id: "c2",
+      };
+      render(<InvoiceForm invoice={invoice} onSubmit={vi.fn()} clients={mockClients} />);
+      expect(screen.getByLabelText(/client/i)).toHaveValue("c2");
+    });
+  });
 });
