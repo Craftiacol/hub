@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { ClientList } from "../components/ClientList";
 
 const mockClients = [
@@ -78,17 +78,43 @@ describe("ClientList", () => {
     ).toBeInTheDocument();
   });
 
-  it("should call onDelete when delete is clicked", async () => {
-    const onDelete = vi.fn();
-    render(<ClientList clients={mockClients} onDelete={onDelete} />);
-    const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
-    deleteButtons[0].click();
-    expect(onDelete).toHaveBeenCalledWith("1");
-  });
-
   it("should render edit links for each client", () => {
     render(<ClientList clients={mockClients} />);
     const editLinks = screen.getAllByRole("link", { name: /edit/i });
     expect(editLinks).toHaveLength(3);
+  });
+
+  describe("delete confirmation", () => {
+    it("should show confirmation dialog when delete button is clicked", () => {
+      const onDelete = vi.fn();
+      render(<ClientList clients={mockClients} onDelete={onDelete} />);
+      const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
+      fireEvent.click(deleteButtons[0]);
+      expect(
+        screen.getByText(/are you sure you want to delete Acme Corp/i)
+      ).toBeInTheDocument();
+      expect(onDelete).not.toHaveBeenCalled();
+    });
+
+    it("should call onDelete when confirming the dialog", () => {
+      const onDelete = vi.fn();
+      render(<ClientList clients={mockClients} onDelete={onDelete} />);
+      const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
+      fireEvent.click(deleteButtons[0]);
+      // The confirm button is inside the dialog overlay
+      const dialog = screen.getByTestId("confirm-dialog-overlay");
+      const confirmButton = dialog.querySelector("button:last-child")!;
+      fireEvent.click(confirmButton);
+      expect(onDelete).toHaveBeenCalledWith("1");
+    });
+
+    it("should not call onDelete when canceling the dialog", () => {
+      const onDelete = vi.fn();
+      render(<ClientList clients={mockClients} onDelete={onDelete} />);
+      const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
+      fireEvent.click(deleteButtons[0]);
+      fireEvent.click(screen.getByRole("button", { name: /cancel/i }));
+      expect(onDelete).not.toHaveBeenCalled();
+    });
   });
 });
