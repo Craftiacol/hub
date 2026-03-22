@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@craftia/ui/button";
 import { logoutAction } from "@/features/auth/actions/logout";
 
 const navItems = [
   { href: "/", label: "Dashboard" },
   { href: "/clients", label: "Clients" },
+  { href: "/deals", label: "Pipeline" },
   { href: "/invoices", label: "Invoices" },
 ];
 
@@ -40,12 +42,13 @@ export function DashboardLayout({
           ))}
         </nav>
         <form action={logoutAction} className="mt-auto pt-8">
-          <button
+          <Button
             type="submit"
-            className="w-full rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-destructive hover:text-destructive-foreground transition-colors"
+            variant="ghost"
+            className="w-full justify-start text-muted-foreground hover:bg-destructive hover:text-destructive-foreground"
           >
             Sign out
-          </button>
+          </Button>
         </form>
       </aside>
       <main className="flex-1 p-8">{children}</main>
