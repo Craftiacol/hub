@@ -7,7 +7,7 @@ function getSupabase() {
 export async function getInvoices() {
   const { data, error } = await getSupabase()
     .from("invoices")
-    .select("*")
+    .select("*, clients(name)")
     .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
@@ -58,4 +58,55 @@ export async function deleteInvoice(id: string) {
     .eq("id", id);
 
   if (error) throw new Error(error.message);
+}
+
+export interface InvoiceListOptions {
+  search?: string;
+  status?: string;
+  clientId?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface PaginatedResult<T> {
+  data: T[];
+  totalCount: number;
+  totalPages: number;
+}
+
+export async function getInvoicesFiltered(
+  options: InvoiceListOptions = {}
+): Promise<PaginatedResult<Record<string, unknown>>> {
+  const { search, status, clientId, page = 1, pageSize = 10 } = options;
+
+  let query = getSupabase()
+    .from("invoices")
+    .select("*, clients(name)", { count: "exact" });
+
+  if (search) {
+    query = query.ilike("invoice_number", `%${search}%`);
+  }
+
+  if (status) {
+    query = query.eq("status", status);
+  }
+
+  if (clientId) {
+    query = query.eq("client_id", clientId);
+  }
+
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  const { data, error, count } = await query
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (error) throw new Error(error.message);
+
+  return {
+    data: data ?? [],
+    totalCount: count ?? 0,
+    totalPages: Math.ceil((count ?? 0) / pageSize),
+  };
 }

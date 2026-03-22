@@ -1,19 +1,33 @@
 import { createServerClient } from "@craftia/auth";
 import { redirect } from "next/navigation";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { ClientList } from "@/features/crm/components/ClientList";
+import { getClientsFiltered } from "@/features/crm/services/client-service";
+import { ClientsPageClient } from "./ClientsPageClient";
 
-export default async function ClientsPage() {
+interface ClientsPageProps {
+  searchParams: Promise<{
+    search?: string;
+    status?: string;
+    page?: string;
+  }>;
+}
+
+export default async function ClientsPage({ searchParams }: ClientsPageProps) {
   const supabase = await createServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: clients } = await supabase
-    .from("clients")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+
+  const { data: clients, totalPages } = await getClientsFiltered({
+    search: params.search,
+    status: params.status,
+    page,
+    pageSize: 10,
+  });
 
   return (
     <DashboardLayout
@@ -21,7 +35,11 @@ export default async function ClientsPage() {
     >
       <h2 className="text-2xl font-bold text-foreground">Clients</h2>
       <div className="mt-6">
-        <ClientList clients={clients || []} />
+        <ClientsPageClient
+          clients={clients as never[]}
+          totalPages={totalPages}
+          currentPage={page}
+        />
       </div>
     </DashboardLayout>
   );
