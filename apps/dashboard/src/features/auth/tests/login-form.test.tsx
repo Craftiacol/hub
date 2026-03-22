@@ -16,11 +16,11 @@ describe("LoginForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render a link to register page", () => {
+  it("should not render a registration link (private dashboard)", () => {
     render(<LoginForm />);
     expect(
-      screen.getByRole("link", { name: /create account/i })
-    ).toBeInTheDocument();
+      screen.queryByRole("link", { name: /create account/i })
+    ).not.toBeInTheDocument();
   });
 
   it("should show validation error for empty email", async () => {

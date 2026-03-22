@@ -85,9 +85,6 @@ export function LoginForm({ onSubmit, error, isLoading }: LoginFormProps) {
         {isLoading ? "Signing in..." : "Sign In"}
       </button>
 
-      <a href="/register" className="text-sm text-blue-600 hover:underline">
-        Create account
-      </a>
     </form>
   );
 }

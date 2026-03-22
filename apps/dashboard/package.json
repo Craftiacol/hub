@@ -17,6 +17,7 @@
     "@craftia/auth": "workspace:*",
     "@craftia/db": "workspace:*",
     "@craftia/ui": "workspace:*",
+    "@supabase/ssr": "^0.9.0",
     "@tailwindcss/postcss": "^4.2.2",
     "next": "16.2.0",
     "postcss": "^8.5.8",
