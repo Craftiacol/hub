@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh *)",
+      "Bash(pnpm *)",
+      "Bash(npx playwright *)",
+      "Bash(npx turbo *)",
+      "Bash(npx supabase *)"
+    ]
+  }
+}
