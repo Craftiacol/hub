@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { Input } from "@craftia/ui/input";
+import { Label } from "@craftia/ui/label";
+import { Button } from "@craftia/ui/button";
 
 interface LoginFormProps {
   onSubmit?: (data: { email: string; password: string }) => void;
@@ -40,50 +43,40 @@ export function LoginForm({ onSubmit, error, isLoading }: LoginFormProps) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       {error && (
-        <p className="text-sm text-red-500" role="alert">
+        <p className="text-sm text-destructive" role="alert">
           {error}
         </p>
       )}
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="text-sm font-medium">
-          Email
-        </label>
-        <input
+        <Label htmlFor="email">Email</Label>
+        <Input
           id="email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md border px-3 py-2"
         />
         {errors.email && (
-          <p className="text-sm text-red-500">{errors.email}</p>
+          <p className="text-sm text-destructive">{errors.email}</p>
         )}
       </div>
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="text-sm font-medium">
-          Password
-        </label>
-        <input
+        <Label htmlFor="password">Password</Label>
+        <Input
           id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-md border px-3 py-2"
         />
         {errors.password && (
-          <p className="text-sm text-red-500">{errors.password}</p>
+          <p className="text-sm text-destructive">{errors.password}</p>
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="rounded-md bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
-      >
+      <Button type="submit" disabled={isLoading}>
         {isLoading ? "Signing in..." : "Sign In"}
-      </button>
+      </Button>
 
     </form>
   );

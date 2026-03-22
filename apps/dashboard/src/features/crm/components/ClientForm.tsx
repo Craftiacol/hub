@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Input } from "@craftia/ui/input";
+import { Label } from "@craftia/ui/label";
+import { Select } from "@craftia/ui/select";
+import { Button } from "@craftia/ui/button";
 
 interface ClientFormProps {
   client?: {
@@ -42,10 +46,10 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="name">Name</Label>
+        <Input
           id="name"
           type="text"
           value={name}
@@ -53,9 +57,9 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
           id="email"
           type="text"
           value={email}
@@ -63,9 +67,9 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="company">Company</label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="company">Company</Label>
+        <Input
           id="company"
           type="text"
           value={company}
@@ -73,9 +77,9 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="phone">Phone</label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="phone">Phone</Label>
+        <Input
           id="phone"
           type="text"
           value={phone}
@@ -83,9 +87,9 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="status">Status</label>
-        <select
+      <div className="space-y-2">
+        <Label htmlFor="status">Status</Label>
+        <Select
           id="status"
           value={status}
           onChange={(e) => setStatus(e.target.value as "lead" | "active" | "inactive" | "churned")}
@@ -94,14 +98,14 @@ export function ClientForm({ client, onSubmit, isLoading }: ClientFormProps) {
           <option value="active">active</option>
           <option value="inactive">inactive</option>
           <option value="churned">churned</option>
-        </select>
+        </Select>
       </div>
 
-      {error && <p>{error}</p>}
+      {error && <p className="text-sm text-destructive">{error}</p>}
 
-      <button type="submit" disabled={isLoading}>
+      <Button type="submit" disabled={isLoading}>
         {isLoading ? "Saving..." : "Save Client"}
-      </button>
+      </Button>
     </form>
   );
 }
