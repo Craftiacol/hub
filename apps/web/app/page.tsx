@@ -1,24 +1,29 @@
 import {
   Hero,
+  Metrics,
   Services,
+  Process,
   Portfolio,
+  TechStack,
   About,
+  Testimonials,
+  ClosingCTA,
   Contact,
   Footer,
 } from "@/app/features/landing";
-import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
     <main className="scroll-smooth">
       <Hero />
-      <Separator />
+      <Metrics />
       <Services />
-      <Separator />
+      <Process />
       <Portfolio />
-      <Separator />
+      <TechStack />
       <About />
-      <Separator />
+      <Testimonials />
+      <ClosingCTA />
       <Contact />
       <Footer />
     </main>

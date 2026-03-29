@@ -42,11 +42,17 @@ export function Services() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {services.map((service) => (
-            <Card key={service.title} className="border-0">
+          {services.map((service, i) => (
+            <Card
+              key={service.title}
+              className="border border-border/50 transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+              style={{
+                animation: `fade-in-up 0.6s ease-out ${i * 0.15}s both`,
+              }}
+            >
               <CardHeader>
-                <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/10">
-                  <service.icon className="size-5 text-primary" />
+                <div className="mb-2 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 ring-1 ring-primary/10">
+                  <service.icon className="size-6 text-primary" />
                 </div>
                 <CardTitle>{service.title}</CardTitle>
                 <CardDescription>{service.description}</CardDescription>

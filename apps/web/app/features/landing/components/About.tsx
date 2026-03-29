@@ -1,14 +1,21 @@
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-
-const techStack = ["Next.js", "TypeScript", "Supabase", "AI", "Tailwind"];
 
 export function About() {
   return (
-    <section id="about" className="px-4 py-24 sm:px-6">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="about" className="relative px-4 py-24 sm:px-6">
+      {/* Subtle background pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "radial-gradient(var(--primary) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-3xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          About Craftia
+          About <span className="gradient-text">Craftia</span>
         </h2>
 
         <div className="mt-8 space-y-6 text-muted-foreground">
@@ -22,14 +29,6 @@ export function About() {
             cutting-edge AI to amplify our work, not replace thoughtful
             engineering. The human always leads.
           </p>
-        </div>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
-          {techStack.map((tech) => (
-            <Badge key={tech} variant="outline">
-              {tech}
-            </Badge>
-          ))}
         </div>
 
         <Separator className="mx-auto mt-12 max-w-xs" />
