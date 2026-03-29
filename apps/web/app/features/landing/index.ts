@@ -1,6 +1,11 @@
 export { Hero } from "./components/Hero";
+export { Metrics } from "./components/Metrics";
 export { Services } from "./components/Services";
+export { Process } from "./components/Process";
 export { Portfolio } from "./components/Portfolio";
+export { TechStack } from "./components/TechStack";
 export { About } from "./components/About";
+export { Testimonials } from "./components/Testimonials";
+export { ClosingCTA } from "./components/ClosingCTA";
 export { Contact } from "./components/Contact";
 export { Footer } from "./components/Footer";
