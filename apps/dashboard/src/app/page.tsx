@@ -27,35 +27,35 @@ export default async function DashboardHome() {
     >
       <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="border-l-4 border-l-primary transition-shadow hover:shadow-md">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Total Clients</p>
-            <p className="mt-2 text-3xl font-bold text-foreground">
+            <p className="mt-2 text-3xl font-bold text-primary">
               {clientCount || 0}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-l-4 border-l-accent transition-shadow hover:shadow-md">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Total Invoices</p>
-            <p className="mt-2 text-3xl font-bold text-foreground">
+            <p className="mt-2 text-3xl font-bold text-accent">
               {invoiceCount || 0}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-l-4 border-l-brand-amber transition-shadow hover:shadow-md">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">Quick Actions</p>
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 flex gap-3">
               <a
                 href="/clients/new"
-                className="text-sm text-primary hover:underline"
+                className="text-sm font-medium text-primary hover:underline"
               >
                 Add Client
               </a>
               <a
                 href="/invoices/new"
-                className="text-sm text-primary hover:underline"
+                className="text-sm font-medium text-primary hover:underline"
               >
                 New Invoice
               </a>

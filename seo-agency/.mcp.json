@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "google-ads": {
+      "command": "npx",
+      "args": ["-y", "@trueclicks/google-ads-mcp-js", "--token=ZW1haWwtbG9naW46UlVkR1F4a2hQR29UVWg1YlFXMC9JanBIUHlZemNpSXpQakVmT2lBUVpsa2tYR2tWR2cwZEFRNFpKeXNWSERNaU1GRkFKU0FrSmtvTVVBd2pGQjlEUVNoaUhCNDNiVEVqTnhZZURCZEhCVDBlTmo4NkxGSkhQQmhJRmg4YlhUNG1VVTArSERVRE1BPT0="]
+    },
+    "google-analytics": {
+      "command": "npx",
+      "args": ["@toolsdk.ai/google-analytics-mcp"],
+      "env": {
+        "GA4_PROPERTY_ID": "${GA4_PROPERTY_ID}",
+        "GA4_CLIENT_ID": "${GA4_CLIENT_ID}",
+        "GA4_CLIENT_SECRET": "${GA4_CLIENT_SECRET}",
+        "GA4_REFRESH_TOKEN": "${GA4_REFRESH_TOKEN}"
+      }
+    },
+    "search-console": {
+      "command": "npx",
+      "args": ["search-console-mcp"],
+      "env": {
+        "GSC_CLIENT_ID": "${GSC_CLIENT_ID}",
+        "GSC_CLIENT_SECRET": "${GSC_CLIENT_SECRET}",
+        "GSC_REFRESH_TOKEN": "${GSC_REFRESH_TOKEN}",
+        "GSC_PROPERTY": "https://motoshondaconcesionarios.com"
+      }
+    },
+    "lighthouse": {
+      "command": "npx",
+      "args": ["@anthropic-ai/mcp-lighthouse"]
+    }
+  }
+}

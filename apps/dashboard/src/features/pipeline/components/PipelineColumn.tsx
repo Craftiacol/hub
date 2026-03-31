@@ -47,17 +47,17 @@ export function PipelineColumn({
 
   return (
     <div
-      className="flex min-w-[250px] flex-col rounded-lg bg-accent/30 p-3"
+      className="flex min-w-[250px] flex-col rounded-lg border border-border/50 bg-muted/40 p-3"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between border-b border-primary/20 pb-2">
         <h3 className="text-sm font-semibold capitalize text-foreground">
           {label}
         </h3>
         <span
           data-testid={`column-count-${stage}`}
-          className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+          className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
         >
           {deals.length}
         </span>

@@ -65,7 +65,7 @@ export function ClientList({ clients, onDelete }: ClientListProps) {
       ) : (
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/50">
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Status</TableHead>
@@ -74,10 +74,24 @@ export function ClientList({ clients, onDelete }: ClientListProps) {
           </TableHeader>
           <TableBody>
             {clients.map((client) => (
-              <TableRow key={client.id}>
-                <TableCell>{client.name}</TableCell>
+              <TableRow key={client.id} className="transition-colors hover:bg-primary/5">
+                <TableCell className="font-medium">{client.name}</TableCell>
                 <TableCell>{client.email}</TableCell>
-                <TableCell>{client.status}</TableCell>
+                <TableCell>
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                      client.status === "active"
+                        ? "bg-accent/15 text-accent"
+                        : client.status === "lead"
+                          ? "bg-primary/10 text-primary"
+                          : client.status === "inactive"
+                            ? "bg-muted text-muted-foreground"
+                            : "bg-destructive/10 text-destructive"
+                    }`}
+                  >
+                    {client.status}
+                  </span>
+                </TableCell>
                 <TableCell className="flex gap-2">
                   <a
                     href={`/clients/${client.id}/edit`}

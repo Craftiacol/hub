@@ -52,12 +52,12 @@ function formatCurrency(amount: number): string {
 }
 
 const statusColors: Record<Invoice["status"], string> = {
-  draft: "bg-gray-100 text-gray-800",
-  sent: "bg-blue-100 text-blue-800",
-  viewed: "bg-yellow-100 text-yellow-800",
-  paid: "bg-green-100 text-green-800",
-  overdue: "bg-red-100 text-red-800",
-  cancelled: "bg-gray-200 text-gray-500",
+  draft: "bg-muted text-muted-foreground",
+  sent: "bg-primary/10 text-primary",
+  viewed: "bg-brand-amber/15 text-brand-amber",
+  paid: "bg-accent/15 text-accent",
+  overdue: "bg-destructive/10 text-destructive",
+  cancelled: "bg-muted text-muted-foreground line-through",
 };
 
 function canGeneratePaymentLink(status: Invoice["status"]): boolean {
@@ -128,7 +128,7 @@ export function InvoiceList({ invoices, onDelete }: InvoiceListProps) {
       ) : (
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/50">
               <TableHead>Invoice Number</TableHead>
               <TableHead>Client</TableHead>
               <TableHead>Status</TableHead>
@@ -139,7 +139,7 @@ export function InvoiceList({ invoices, onDelete }: InvoiceListProps) {
           </TableHeader>
           <TableBody>
             {invoices.map((invoice) => (
-              <TableRow key={invoice.id}>
+              <TableRow key={invoice.id} className="transition-colors hover:bg-primary/5">
                 <TableCell>{invoice.invoice_number}</TableCell>
                 <TableCell>{invoice.clients?.name ?? "\u2014"}</TableCell>
                 <TableCell>
@@ -147,7 +147,7 @@ export function InvoiceList({ invoices, onDelete }: InvoiceListProps) {
                     {invoice.status}
                   </span>
                   {invoice.status === "paid" && invoice.paid_at && (
-                    <span className="ml-2 text-xs text-gray-500">
+                    <span className="ml-2 text-xs text-muted-foreground">
                       {new Date(invoice.paid_at).toLocaleDateString()}
                     </span>
                   )}

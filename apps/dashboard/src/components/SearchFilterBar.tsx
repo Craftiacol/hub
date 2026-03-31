@@ -72,7 +72,7 @@ export function SearchFilterBar({
         placeholder={searchPlaceholder}
         value={localSearch}
         onChange={handleSearchChange}
-        className="max-w-xs"
+        className="max-w-xs focus-visible:ring-primary"
       />
 
       {filters.map((filter) => (
@@ -94,7 +94,7 @@ export function SearchFilterBar({
       ))}
 
       {hasActiveFilters && (
-        <Button variant="ghost" size="sm" type="button" onClick={handleClearAll}>
+        <Button variant="ghost" size="sm" type="button" onClick={handleClearAll} className="text-primary hover:text-primary hover:bg-primary/5">
           Clear all
         </Button>
       )}

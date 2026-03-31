@@ -42,7 +42,7 @@ export function DealCard({ deal, onDelete }: DealCardProps) {
     <div
       draggable="true"
       onDragStart={handleDragStart}
-      className="rounded-lg border border-border bg-card p-3 shadow-sm cursor-grab active:cursor-grabbing"
+      className="rounded-lg border border-border bg-card p-3 shadow-sm cursor-grab active:cursor-grabbing transition-all duration-200 hover:shadow-md hover:scale-[1.02] hover:border-primary/30"
     >
       <h4 className="font-medium text-foreground">{deal.title}</h4>
 
